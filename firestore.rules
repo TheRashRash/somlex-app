@@ -1,0 +1,128 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(uid) {
+      return request.auth.uid == uid;
+    }
+    
+    function isValidUser() {
+      return isSignedIn() && 
+             request.auth.token.email_verified == true;
+    }
+    
+    // User documents - users can only read/write their own data
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+      
+      // User settings validation
+      allow create: if isOwner(uid) && 
+                    validateUserData();
+      allow update: if isOwner(uid) && 
+                    validateUserUpdate();
+    }
+    
+    // Categories - public read access for all authenticated users
+    match /categories/{categoryId} {
+      allow read: if isSignedIn();
+      
+      // Only allow writes through admin/import scripts
+      allow write: if false; // Admin writes through service account
+      
+      // Validate category data structure
+      function validateCategory() {
+        return request.resource.data.keys().hasAll(['nameSo', 'nameEn', 'icon', 'createdAt']) &&
+               request.resource.data.nameSo is string &&
+               request.resource.data.nameEn is string &&
+               request.resource.data.icon is string &&
+               request.resource.data.createdAt is timestamp;
+      }
+    }
+    
+    // Words - public read access for all authenticated users
+    match /words/{wordId} {
+      allow read: if isSignedIn();
+      
+      // Only allow writes through admin/import scripts
+      allow write: if false; // Admin writes through service account
+      
+      // Validate word data structure
+      function validateWord() {
+        return request.resource.data.keys().hasAll(['categoryId', 'wordSo', 'wordEn', 'partOfSpeech', 'createdAt']) &&
+               request.resource.data.categoryId is string &&
+               request.resource.data.wordSo is string &&
+               request.resource.data.wordEn is string &&
+               request.resource.data.partOfSpeech is string &&
+               request.resource.data.createdAt is timestamp;
+      }
+    }
+    
+    // User progress - private to each user
+    match /users/{uid}/progress/{progressId} {
+      allow read, write: if isOwner(uid) && isValidUser();
+      
+      // Validate progress data structure
+      allow create: if isOwner(uid) && 
+                    validateProgressData();
+      allow update: if isOwner(uid) && 
+                    validateProgressUpdate();
+    }
+    
+    // Validation functions
+    function validateUserData() {
+      let requiredFields = ['email', 'joinedAt', 'settings'];
+      let settingsFields = ['language', 'notifications', 'darkMode'];
+      
+      return request.resource.data.keys().hasAll(requiredFields) &&
+             request.resource.data.email == request.auth.token.email &&
+             request.resource.data.joinedAt is timestamp &&
+             request.resource.data.settings.keys().hasAll(settingsFields) &&
+             request.resource.data.settings.language in ['so', 'en'] &&
+             request.resource.data.settings.notifications is bool &&
+             request.resource.data.settings.darkMode is bool;
+    }
+    
+    function validateUserUpdate() {
+      // Users can only update their settings, not email or joinedAt
+      let allowedFields = ['settings'];
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(allowedFields) &&
+             validateUserSettings();
+    }
+    
+    function validateUserSettings() {
+      return request.resource.data.settings.language in ['so', 'en'] &&
+             request.resource.data.settings.notifications is bool &&
+             request.resource.data.settings.darkMode is bool;
+    }
+    
+    function validateProgressData() {
+      let requiredFields = ['wordId', 'correctCount', 'totalAttempts', 'strength', 'lastReviewed', 'nextReview'];
+      
+      return request.resource.data.keys().hasAll(requiredFields) &&
+             request.resource.data.wordId is string &&
+             request.resource.data.correctCount is int &&
+             request.resource.data.totalAttempts is int &&
+             request.resource.data.correctCount <= request.resource.data.totalAttempts &&
+             request.resource.data.strength in ['weak', 'medium', 'strong'] &&
+             request.resource.data.lastReviewed is timestamp &&
+             request.resource.data.nextReview is timestamp;
+    }
+    
+    function validateProgressUpdate() {
+      // Ensure progress can only increase, not decrease
+      return request.resource.data.correctCount >= resource.data.correctCount &&
+             request.resource.data.totalAttempts >= resource.data.totalAttempts &&
+             validateProgressData();
+    }
+    
+    // Deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

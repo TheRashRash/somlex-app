@@ -9,7 +9,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "import-data": "node ./scripts/importData.js"
+    "import-data": "node ./scripts/importData.js",
+    "admin-import": "node ./scripts/adminImport.js",
+    "test-data": "node ./scripts/testDataModel.js",
+    "test-security": "node ./scripts/testSecurityRules.js"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -46,6 +49,7 @@
     "csv-parser": "^3.2.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
+    "firebase-admin": "^13.4.0",
     "typescript": "~5.8.3"
   },
   "private": true
