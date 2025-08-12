@@ -1,7 +1,11 @@
 // Shared UI components
-export { default as ThemedText } from './ThemedText';
-export { default as ThemedView } from './ThemedView';
-export { default as HelloWave } from './HelloWave';
-export { default as ExternalLink } from './ExternalLink';
-export { default as TabBarBackground } from './TabBarBackground';
-export { default as IconSymbol } from './IconSymbol';
+export { ThemedText } from './ThemedText';
+export { ThemedView } from './ThemedView';
+export { HelloWave } from './HelloWave';
+export { ExternalLink } from './ExternalLink';
+export { Collapsible } from './Collapsible';
+export { default as ParallaxScrollView } from './ParallaxScrollView';
+export { HapticTab } from './HapticTab';
+// UI subfolder components
+export { default as TabBarBackground } from './ui/TabBarBackground';
+export { default as IconSymbol } from './ui/IconSymbol';
