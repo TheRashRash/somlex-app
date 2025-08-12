@@ -4,7 +4,16 @@
     "strict": true,
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
+      ],
+      "@/modules/*": [
+        "./src/modules/*"
+      ],
+      "@/core/*": [
+        "./src/core/*"
+      ],
+      "@/shared/*": [
+        "./src/shared/*"
       ]
     }
   },
@@ -12,6 +21,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    "expo-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ]
 }
