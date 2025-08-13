@@ -27,7 +27,7 @@ export default function HomeScreen() {
   const [testMode, setTestMode] = useState<'menu' | 'vocabulary' | 'quiz' | 'competition'>('menu');
 
   if (testMode === 'vocabulary') {
-    return <VocabularyTest />;
+    return <VocabularyTest onBack={() => setTestMode('menu')} />;
   }
 
   if (testMode === 'quiz') {

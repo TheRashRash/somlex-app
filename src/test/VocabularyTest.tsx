@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, IconButton } from 'react-native-paper';
 import { WordCard } from '../modules/vocabulary/ui/WordCard';
 import { Word } from '../modules/vocabulary/data/types';
 
@@ -44,7 +44,11 @@ const mockWords: Word[] = [
   },
 ];
 
-export default function VocabularyTest() {
+interface VocabularyTestProps {
+  onBack?: () => void;
+}
+
+export default function VocabularyTest({ onBack }: VocabularyTestProps) {
   const handleWordPress = (word: Word) => {
     console.log('Word pressed:', word.wordSo);
   };
@@ -52,6 +56,14 @@ export default function VocabularyTest() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
+        {onBack && (
+          <IconButton
+            icon="arrow-left"
+            size={24}
+            onPress={onBack}
+            style={styles.backButton}
+          />
+        )}
         <Text variant="headlineMedium" style={styles.title}>
           🧪 Vocabulary Component Test
         </Text>
@@ -101,6 +113,13 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'white',
     alignItems: 'center',
+    position: 'relative',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    zIndex: 1,
   },
   title: {
     color: '#2E7D32',
