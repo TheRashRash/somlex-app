@@ -9,6 +9,9 @@ import { useVocabularyActions } from '../store/vocabularyStore';
 import { Category, Word, VocabularyScreenProps } from '../data/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { VocabularyStackParamList } from '../navigation/VocabularyNavigator';
+import { AfricanColors, AfricanSpacing } from '@/theme/africanTheme';
+import { AfricanPatternBackground, AfricanBorder } from '@/theme/components/AfricanComponents';
+import { LinearGradient } from 'expo-linear-gradient';
 
 type VocabularyScreenNavigationProp = StackNavigationProp<VocabularyStackParamList, 'VocabularyHome'>;
 
@@ -172,22 +175,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 16,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: AfricanColors.background.surface,
   },
   title: {
-    color: '#2E7D32',
+    color: AfricanColors.primary.main,
     marginBottom: 4,
     textAlign: 'center',
   },
   subtitle: {
-    color: '#333',
+    color: AfricanColors.text.secondary,
     textAlign: 'center',
     fontSize: 14,
   },
   searchContainer: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: AfricanColors.background.surface,
     elevation: 2,
   },
   searchbar: {

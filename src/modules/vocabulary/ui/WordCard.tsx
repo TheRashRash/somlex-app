@@ -4,6 +4,7 @@ import { Card, Text, Chip, IconButton } from 'react-native-paper';
 import { ThemedText } from '@/shared/ui/ThemedText';
 import { Word, WordCardProps } from '../data/types';
 import { useTTS } from '../utils/ttsUtils';
+import { AfricanColors } from '@/theme/africanTheme';
 
 export const WordCard: React.FC<WordCardProps> = ({ 
   word, 
@@ -248,12 +249,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   somaliWord: {
-    color: '#2E7D32',
+    color: AfricanColors.primary.main,
     fontWeight: 'bold',
     fontSize: 24,
   },
   englishWord: {
-    color: '#1976D2',
+    color: AfricanColors.secondary.main,
     fontWeight: 'bold',
     fontSize: 24,
   },
