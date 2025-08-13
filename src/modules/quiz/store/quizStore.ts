@@ -296,14 +296,7 @@ export const useQuizStore = create<QuizStoreState>((set, get) => ({
 }));
 
 // Cleanup timer when store is destroyed
-if (typeof window !== 'undefined') {
-  window.addEventListener('beforeunload', () => {
-    const store = useQuizStore.getState();
-    if ((store as any).timerId) {
-      clearInterval((store as any).timerId);
-    }
-  });
-}
+// Note: React Native doesn't have window.addEventListener, so we handle cleanup in resetQuiz instead
 
 // Helper hooks
 export const useCurrentQuestion = () => {
