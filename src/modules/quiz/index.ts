@@ -1,10 +1,10 @@
-// UI Components
-export { QuestionCard } from './ui/QuestionCard';
-export { QuizScreen } from './ui/QuizScreen';
+// UI Components - Enhanced production versions
+export { QuizScreenEnhanced as QuizScreen } from './ui/QuizScreenEnhanced';
 export { ResultScreen } from './ui/ResultScreen';
+export { QuestionCard } from './ui/QuestionCard';
 
 // Engine
-export { QuizEngine, quizEngine } from './engine/QuizEngine';
+export { quizEngine } from './engine/QuizEngine';
 
 // Store
 export { 

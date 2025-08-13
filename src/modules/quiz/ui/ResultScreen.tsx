@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Card, Text, Button, ProgressBar, Divider, Chip } from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, ScrollView, Animated } from 'react-native';
+import { Card, Text, Button, ProgressBar, Divider, Chip, Surface, IconButton } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 import { ThemedView } from '@/shared/ui/ThemedView';
 import { ThemedText } from '@/shared/ui/ThemedText';
 import { ResultScreenProps } from '../engine/types';
@@ -14,6 +15,27 @@ import {
   calculateStreak,
   generateStudyPlan 
 } from '../utils/helpers';
+
+// Fixed African color palette with proper contrast ratios
+const AfricanColors = {
+  primary: { main: '#B8860B', light: '#D4AF37', dark: '#8B6914' },
+  secondary: { main: '#654321', light: '#8D6E63' },
+  background: { primary: '#FFFEF7', card: '#FFFFFF', surface: '#FAF0E6' },
+  text: { 
+    primary: '#2F2F2F', 
+    secondary: '#4A4A4A', 
+    tertiary: '#666666',
+    inverse: '#FFFFFF',
+    onPrimary: '#FFFFFF'
+  },
+  accent: { 
+    coral: '#D2691E', 
+    terracotta: '#B8860B', 
+    green: '#4CAF50', 
+    red: '#F44336',
+    blue: '#2196F3'
+  },
+};
 
 export const ResultScreen: React.FC<ResultScreenProps> = ({ 
   session, 
@@ -273,17 +295,25 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
   );
 
   return (
-    <ThemedView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <ThemedText type="title" style={styles.title}>
-            🎉 Natiijooyinka Imtixaanka
-          </ThemedText>
-          <ThemedText style={styles.subtitle}>
-            Quiz Results
-          </ThemedText>
+    <View style={styles.container}>
+      {/* Beautiful African header */}
+      <LinearGradient
+        colors={[AfricanColors.primary.light, AfricanColors.primary.main, AfricanColors.secondary.main]}
+        style={styles.resultsHeader}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <View style={styles.headerContent}>
+          <Text variant="displaySmall" style={styles.title}>
+            🎉 Natiijooyinka
+          </Text>
+          <Text variant="titleMedium" style={styles.subtitle}>
+            Imtixaanka - Quiz Results
+          </Text>
         </View>
+      </LinearGradient>
 
+      <ScrollView style={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {renderScoreCard()}
         {renderStatsCard()}
         {renderStreakCard()}
@@ -292,27 +322,49 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({
         {renderStudyPlan()}
         {renderActionButtons()}
       </ScrollView>
-    </ThemedView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: AfricanColors.background.primary,
   },
-  header: {
-    padding: 20,
+  
+  // Header styles
+  resultsHeader: {
+    paddingTop: 60,
+    paddingBottom: 32,
+    paddingHorizontal: 24,
+    minHeight: 180,
+  },
+  headerContent: {
     alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
   title: {
-    color: '#2E7D32',
+    color: AfricanColors.text.inverse,
+    fontWeight: '800',
     textAlign: 'center',
-    marginBottom: 4,
+    marginBottom: 8,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   subtitle: {
-    color: '#666',
+    color: AfricanColors.text.inverse,
     textAlign: 'center',
+    fontWeight: '600',
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  
+  scrollContent: {
+    flex: 1,
+    paddingTop: 16,
   },
   scoreCard: {
     marginHorizontal: 20,

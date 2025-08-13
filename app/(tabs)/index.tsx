@@ -1,5 +1,6 @@
 import VocabularyTest from '@/test/VocabularyTest';
-import { QuizScreenProduction } from '@/modules/quiz/ui/QuizScreenProduction';
+import { QuizScreenEnhanced } from '@/modules/quiz/ui/QuizScreenEnhanced';
+import { CompetitionScreen } from '@/modules/competition/ui/CompetitionScreen';
 import { useState } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { Button, Text, Card, IconButton } from 'react-native-paper';
@@ -23,14 +24,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 const { width } = Dimensions.get('window');
 
 export default function HomeScreen() {
-  const [testMode, setTestMode] = useState<'menu' | 'vocabulary' | 'quiz'>('menu');
+  const [testMode, setTestMode] = useState<'menu' | 'vocabulary' | 'quiz' | 'competition'>('menu');
 
   if (testMode === 'vocabulary') {
     return <VocabularyTest />;
   }
 
   if (testMode === 'quiz') {
-    return <QuizScreenProduction onBack={() => setTestMode('menu')} />;
+    return <QuizScreenEnhanced onBack={() => setTestMode('menu')} />;
+  }
+
+  if (testMode === 'competition') {
+    return <CompetitionScreen onBack={() => setTestMode('menu')} />;
   }
 
   return (
@@ -133,6 +138,36 @@ export default function HomeScreen() {
                 textColor={AfricanColors.text.inverse}
               >
                 Imtixaan qaado - Take Quiz
+              </Button>
+            </Card.Content>
+          </Card>
+          {/* Competition Module Card */}
+          <Card style={styles.moduleCard} mode="elevated">
+            <Card.Content>
+              <View style={styles.moduleCardContent}>
+                <View style={styles.moduleIcon}>
+                  <Text style={styles.moduleEmoji}>🏆</Text>
+                </View>
+                <View style={styles.moduleInfo}>
+                  <Text variant="titleMedium" style={styles.moduleTitle}>
+                    Tartanka - Competition
+                  </Text>
+                  <Text variant="bodyMedium" style={styles.moduleDescription}>
+                    Ka qayb gal tartamyada, ku tartam asxaabtaada
+                  </Text>
+                  <Text variant="bodySmall" style={styles.moduleDescriptionEn}>
+                    Join competitions, compete with friends
+                  </Text>
+                </View>
+              </View>
+              <Button
+                mode="contained"
+                onPress={() => setTestMode('competition')}
+                style={styles.moduleButton}
+                buttonColor={AfricanColors.accent.coral}
+                textColor={AfricanColors.text.inverse}
+              >
+                Tartan bilow - Start Competing
               </Button>
             </Card.Content>
           </Card>
