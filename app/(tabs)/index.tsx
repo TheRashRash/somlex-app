@@ -3,13 +3,20 @@ import { QuizScreenProduction } from '@/modules/quiz/ui/QuizScreenProduction';
 import { useState } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { Button, Text, Card, IconButton } from 'react-native-paper';
-// Using inline African colors for now
+// Fixed African colors with proper contrast ratios
 const AfricanColors = {
-  primary: { main: '#D4AF37', light: '#F4D03F' },
-  secondary: { main: '#8B4513' },
+  primary: { main: '#B8860B', light: '#D4AF37' }, // Darker gold for better contrast
+  secondary: { main: '#654321' }, // Dark brown
   background: { primary: '#FFFEF7', card: '#FFFFFF', surface: '#FAF0E6' },
-  text: { primary: '#2F2F2F', secondary: '#654321', tertiary: '#8B7355', inverse: '#FFFEF7' },
-  accent: { coral: '#FF7F50', terracotta: '#D2691E' },
+  text: { 
+    primary: '#2F2F2F', // Dark text for light backgrounds
+    secondary: '#4A4A4A', // Medium dark for secondary text
+    tertiary: '#666666', // Lighter gray for subtle text
+    inverse: '#FFFFFF', // White for dark backgrounds
+    onPrimary: '#FFFFFF', // White text on primary colors
+    onSecondary: '#FFFFFF' // White text on secondary colors
+  },
+  accent: { coral: '#D2691E', terracotta: '#B8860B' }, // Better contrast versions
 };
 import { LinearGradient } from 'expo-linear-gradient';
 

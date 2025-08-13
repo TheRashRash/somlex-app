@@ -249,12 +249,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   somaliWord: {
-    color: AfricanColors.primary.main,
+    color: '#B8860B', // Darker gold for better contrast
     fontWeight: 'bold',
     fontSize: 24,
   },
   englishWord: {
-    color: AfricanColors.secondary.main,
+    color: '#654321', // Dark brown for better contrast
     fontWeight: 'bold',
     fontSize: 24,
   },
