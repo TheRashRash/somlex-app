@@ -3,8 +3,14 @@ import QuizTest from '@/test/QuizTest';
 import { useState } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { Button, Text, Card, IconButton } from 'react-native-paper';
-import { AfricanGradient, AfricanPatternBackground, AfricanBorder, AfricanCard } from '@/theme/components/AfricanComponents';
-import { AfricanColors, AfricanSpacing, AfricanBorderRadius, AfricanShadows } from '@/theme/africanTheme';
+// Using inline African colors for now
+const AfricanColors = {
+  primary: { main: '#D4AF37', light: '#F4D03F' },
+  secondary: { main: '#8B4513' },
+  background: { primary: '#FFFEF7', card: '#FFFFFF', surface: '#FAF0E6' },
+  text: { primary: '#2F2F2F', secondary: '#654321', tertiary: '#8B7355', inverse: '#FFFEF7' },
+  accent: { coral: '#FF7F50', terracotta: '#D2691E' },
+};
 import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
@@ -29,20 +35,17 @@ export default function HomeScreen() {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
-        <AfricanPatternBackground pattern="geometric" opacity={0.15}>
-          <View style={styles.headerContent}>
-            <Text variant="displaySmall" style={styles.appName}>
-              SOMLEX
-            </Text>
-            <Text variant="titleMedium" style={styles.tagline}>
-              🌍 Baro Af-Soomaaliga
-            </Text>
-            <Text variant="bodyMedium" style={styles.taglineEn}>
-              Learn Somali with African Beauty
-            </Text>
-            <AfricanBorder pattern="diamonds" color={AfricanColors.background.card} />
-          </View>
-        </AfricanPatternBackground>
+        <View style={styles.headerContent}>
+          <Text variant="displaySmall" style={styles.appName}>
+            SOMLEX
+          </Text>
+          <Text variant="titleMedium" style={styles.tagline}>
+            🌍 Baro Af-Soomaaliga
+          </Text>
+          <Text variant="bodyMedium" style={styles.taglineEn}>
+            Learn Somali with African Beauty
+          </Text>
+        </View>
       </LinearGradient>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -66,62 +69,66 @@ export default function HomeScreen() {
           </Text>
           
           {/* Vocabulary Module Card */}
-          <AfricanCard variant="elevated" pattern={true} style={styles.moduleCard}>
-            <View style={styles.moduleCardContent}>
-              <View style={styles.moduleIcon}>
-                <Text style={styles.moduleEmoji}>📚</Text>
+          <Card style={styles.moduleCard} mode="elevated">
+            <Card.Content>
+              <View style={styles.moduleCardContent}>
+                <View style={styles.moduleIcon}>
+                  <Text style={styles.moduleEmoji}>📚</Text>
+                </View>
+                <View style={styles.moduleInfo}>
+                  <Text variant="titleMedium" style={styles.moduleTitle}>
+                    Qaamuuska - Vocabulary
+                  </Text>
+                  <Text variant="bodyMedium" style={styles.moduleDescription}>
+                    Ku baro ereyada Af-Soomaaliga oo dhegayso codka saxda ah
+                  </Text>
+                  <Text variant="bodySmall" style={styles.moduleDescriptionEn}>
+                    Learn Somali words with authentic pronunciation
+                  </Text>
+                </View>
               </View>
-              <View style={styles.moduleInfo}>
-                <Text variant="titleMedium" style={styles.moduleTitle}>
-                  Qaamuuska - Vocabulary
-                </Text>
-                <Text variant="bodyMedium" style={styles.moduleDescription}>
-                  Ku baro ereyada Af-Soomaaliga oo dhegayso codka saxda ah
-                </Text>
-                <Text variant="bodySmall" style={styles.moduleDescriptionEn}>
-                  Learn Somali words with authentic pronunciation
-                </Text>
-              </View>
-            </View>
-            <Button
-              mode="contained"
-              onPress={() => setTestMode('vocabulary')}
-              style={styles.moduleButton}
-              buttonColor={AfricanColors.secondary.main}
-              textColor={AfricanColors.text.inverse}
-            >
-              Bilow - Start Learning
-            </Button>
-          </AfricanCard>
+              <Button
+                mode="contained"
+                onPress={() => setTestMode('vocabulary')}
+                style={styles.moduleButton}
+                buttonColor={AfricanColors.secondary.main}
+                textColor={AfricanColors.text.inverse}
+              >
+                Bilow - Start Learning
+              </Button>
+            </Card.Content>
+          </Card>
 
           {/* Quiz Module Card */}
-          <AfricanCard variant="elevated" pattern={true} style={styles.moduleCard}>
-            <View style={styles.moduleCardContent}>
-              <View style={styles.moduleIcon}>
-                <Text style={styles.moduleEmoji}>🧠</Text>
+          <Card style={styles.moduleCard} mode="elevated">
+            <Card.Content>
+              <View style={styles.moduleCardContent}>
+                <View style={styles.moduleIcon}>
+                  <Text style={styles.moduleEmoji}>🧠</Text>
+                </View>
+                <View style={styles.moduleInfo}>
+                  <Text variant="titleMedium" style={styles.moduleTitle}>
+                    Imtixaanka - Quiz Engine
+                  </Text>
+                  <Text variant="bodyMedium" style={styles.moduleDescription}>
+                    Tijaabi aqoontaada oo aragoo sida aad u horumareyso
+                  </Text>
+                  <Text variant="bodySmall" style={styles.moduleDescriptionEn}>
+                    Test your knowledge and see your progress
+                  </Text>
+                </View>
               </View>
-              <View style={styles.moduleInfo}>
-                <Text variant="titleMedium" style={styles.moduleTitle}>
-                  Imtixaanka - Quiz Engine
-                </Text>
-                <Text variant="bodyMedium" style={styles.moduleDescription}>
-                  Tijaabi aqoontaada oo aragoo sida aad u horumareyso
-                </Text>
-                <Text variant="bodySmall" style={styles.moduleDescriptionEn}>
-                  Test your knowledge and see your progress
-                </Text>
-              </View>
-            </View>
-            <Button
-              mode="contained"
-              onPress={() => setTestMode('quiz')}
-              style={styles.moduleButton}
-              buttonColor={AfricanColors.accent.terracotta}
-              textColor={AfricanColors.text.inverse}
-            >
-              Imtixaan qaado - Take Quiz
-            </Button>
-          </AfricanCard>
+              <Button
+                mode="contained"
+                onPress={() => setTestMode('quiz')}
+                style={styles.moduleButton}
+                buttonColor={AfricanColors.accent.terracotta}
+                textColor={AfricanColors.text.inverse}
+              >
+                Imtixaan qaado - Take Quiz
+              </Button>
+            </Card.Content>
+          </Card>
         </View>
 
         {/* Cultural Note */}
@@ -156,8 +163,8 @@ const styles = StyleSheet.create({
   // Header styles
   header: {
     paddingTop: 60, // Account for status bar
-    paddingBottom: AfricanSpacing.lg,
-    paddingHorizontal: AfricanSpacing.lg,
+    paddingBottom: 24,
+    paddingHorizontal: 24,
     minHeight: 200,
   },
   headerContent: {
@@ -173,13 +180,13 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
     letterSpacing: 4,
-    marginBottom: AfricanSpacing.sm,
+    marginBottom: 8,
   },
   tagline: {
     color: AfricanColors.text.inverse,
     textAlign: 'center',
     fontWeight: '600',
-    marginBottom: AfricanSpacing.xs,
+    marginBottom: 4,
     textShadowColor: 'rgba(0, 0, 0, 0.2)',
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 2,
@@ -188,7 +195,7 @@ const styles = StyleSheet.create({
     color: AfricanColors.background.card,
     textAlign: 'center',
     fontStyle: 'italic',
-    marginBottom: AfricanSpacing.md,
+    marginBottom: 16,
     opacity: 0.9,
   },
   
@@ -199,19 +206,19 @@ const styles = StyleSheet.create({
   
   // Welcome section
   welcomeSection: {
-    padding: AfricanSpacing.lg,
+    padding: 24,
     alignItems: 'center',
   },
   welcomeTitle: {
     color: AfricanColors.primary.main,
     textAlign: 'center',
     fontWeight: '700',
-    marginBottom: AfricanSpacing.sm,
+    marginBottom: 8,
   },
   welcomeText: {
     color: AfricanColors.text.primary,
     textAlign: 'center',
-    marginBottom: AfricanSpacing.xs,
+    marginBottom: 4,
     fontWeight: '500',
   },
   welcomeTextEn: {
@@ -222,26 +229,30 @@ const styles = StyleSheet.create({
   
   // Module section
   moduleSection: {
-    paddingHorizontal: AfricanSpacing.lg,
-    paddingBottom: AfricanSpacing.xl,
+    paddingHorizontal: 24,
+    paddingBottom: 32,
   },
   sectionTitle: {
     color: AfricanColors.secondary.main,
     fontWeight: '700',
     textAlign: 'center',
-    marginBottom: AfricanSpacing.lg,
+    marginBottom: 24,
   },
   
   // Module cards
   moduleCard: {
-    marginBottom: AfricanSpacing.lg,
-    borderRadius: AfricanBorderRadius.xl,
-    ...AfricanShadows.lg,
+    marginBottom: 24,
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
   moduleCardContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: AfricanSpacing.md,
+    marginBottom: 16,
   },
   moduleIcon: {
     width: 60,
@@ -250,8 +261,12 @@ const styles = StyleSheet.create({
     backgroundColor: AfricanColors.primary.light,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: AfricanSpacing.md,
-    ...AfricanShadows.sm,
+    marginRight: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+    elevation: 1,
   },
   moduleEmoji: {
     fontSize: 28,
@@ -262,11 +277,11 @@ const styles = StyleSheet.create({
   moduleTitle: {
     color: AfricanColors.text.primary,
     fontWeight: '700',
-    marginBottom: AfricanSpacing.xs,
+    marginBottom: 4,
   },
   moduleDescription: {
     color: AfricanColors.text.secondary,
-    marginBottom: AfricanSpacing.xs,
+    marginBottom: 4,
     lineHeight: 22,
   },
   moduleDescriptionEn: {
@@ -275,31 +290,31 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   moduleButton: {
-    borderRadius: AfricanBorderRadius.md,
-    marginTop: AfricanSpacing.sm,
+    borderRadius: 8,
+    marginTop: 8,
   },
   
   // Cultural section
   culturalSection: {
-    paddingHorizontal: AfricanSpacing.lg,
-    paddingBottom: AfricanSpacing['2xl'],
+    paddingHorizontal: 24,
+    paddingBottom: 48,
   },
   culturalCard: {
     borderColor: AfricanColors.accent.coral,
     borderWidth: 2,
-    borderRadius: AfricanBorderRadius.lg,
+    borderRadius: 12,
     backgroundColor: AfricanColors.background.surface,
   },
   culturalTitle: {
     color: AfricanColors.accent.coral,
     fontWeight: '600',
-    marginBottom: AfricanSpacing.sm,
+    marginBottom: 8,
     textAlign: 'center',
   },
   culturalText: {
     color: AfricanColors.text.primary,
     lineHeight: 24,
-    marginBottom: AfricanSpacing.sm,
+    marginBottom: 8,
     textAlign: 'center',
   },
   culturalTextEn: {
