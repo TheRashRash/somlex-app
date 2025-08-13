@@ -10,7 +10,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '@/core/firebase';
 import { userService } from '@/core/database';
-import { AuthStore } from '../types';
+import { AuthStore } from '../types/index';
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
   // Initial state

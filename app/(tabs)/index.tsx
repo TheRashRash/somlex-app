@@ -1,5 +1,5 @@
 import VocabularyTest from '@/test/VocabularyTest';
-import QuizTest from '@/test/QuizTest';
+import { QuizScreenProduction } from '@/modules/quiz/ui/QuizScreenProduction';
 import { useState } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { Button, Text, Card, IconButton } from 'react-native-paper';
@@ -23,7 +23,7 @@ export default function HomeScreen() {
   }
 
   if (testMode === 'quiz') {
-    return <QuizTest />;
+    return <QuizScreenProduction onBack={() => setTestMode('menu')} />;
   }
 
   return (
